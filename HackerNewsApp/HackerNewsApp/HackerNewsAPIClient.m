@@ -11,13 +11,16 @@
 @implementation HackerNewsAPIClient
 
 + (void)fetchTopFiveHundredStoryIDs: (void (^)(NSArray *storyIDs))completion {
-    NSURL *url = [NSURL URLWithString:@"https://hacker-news.firebaseio.com/v0/topstories.json"];
-    NSURLSession *session = [NSURLSession sharedSession];
+  NSURL *url = [NSURL URLWithString:@"https://hacker-news.firebaseio.com/v0/topstories.json"];
+  
+  
+  [[[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
     
-//    NSURLSessionTask *task = [session dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//        <#code#>
-//    }]
+    NSLog(@"%@", data);
     
+  }]resume];
+  
+  
 }
 
 
