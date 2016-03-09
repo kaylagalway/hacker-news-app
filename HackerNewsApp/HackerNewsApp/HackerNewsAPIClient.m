@@ -33,7 +33,7 @@ NSString *const HackerNewsApiClient_JsonURLParameter = @".json";
 }
 
 + (void)fetchStoryWithID:(NSNumber *)storyID :(void (^)(NSDictionary *storyDictionary))completion {
-  
+  //https://hacker-news.firebaseio.com/v0/item/11248320.json
 }
 
 @end
