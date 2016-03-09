@@ -8,10 +8,17 @@
 
 #import "HackerNewsAPIClient.h"
 
+NSString *const HackerNewsAPIClient_baseURL = @"https://hacker-news.firebaseio.com/v0/";
+
+NSString *const HackerNewsApiClient_topStoriesURLParameter = @"/topstories";
+NSString *const HackerNewsApiClient_itemURLParameter = @"/item/";
+
+NSString *const HackerNewsApiClient_JsonURLParameter = @".json";
+
 @implementation HackerNewsAPIClient
 
 + (void)fetchTopFiveHundredStoryIDs: (void (^)(NSArray *storyIDs))completion {
-  NSURL *url = [NSURL URLWithString:@"https://hacker-news.firebaseio.com/v0/topstories.json"];
+  NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", HackerNewsAPIClient_baseURL, HackerNewsApiClient_topStoriesURLParameter, HackerNewsApiClient_JsonURLParameter]];
   
     //this is the same as creating an NSURLsession variable, creates a data task, and resumes session
   [[[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -22,11 +29,7 @@
       //called completion and passed it arrayWithID
       completion (arrayWithID);
     
-    NSLog(@"%@", data);
-    
   }]resume];
-  
-  
 }
 
 
