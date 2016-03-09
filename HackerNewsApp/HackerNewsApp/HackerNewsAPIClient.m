@@ -8,6 +8,8 @@
 
 #import "HackerNewsAPIClient.h"
 
+//creating these constants to contain the portions of the URL that we can then reference easily later. These are unchangeable.
+
 NSString *const HackerNewsAPIClient_baseURL = @"https://hacker-news.firebaseio.com/v0/";
 
 NSString *const HackerNewsApiClient_topStoriesURLParameter = @"/topstories";
