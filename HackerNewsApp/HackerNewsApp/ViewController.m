@@ -18,8 +18,13 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   [HackerNewsAPIClient fetchTopFiveHundredStoryIDs:^(NSArray *storyIDs) {
-    
+      
+    [HackerNewsAPIClient fetchStoryWithID:storyIDs[0] :^(NSDictionary *storyDictionary) {
+        
+    }];
+      
   }];
+    
   // Do any additional setup after loading the view, typically from a nib.
 }
 
