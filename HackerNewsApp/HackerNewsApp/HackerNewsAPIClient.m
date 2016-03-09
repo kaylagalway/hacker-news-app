@@ -34,6 +34,9 @@ NSString *const HackerNewsApiClient_JsonURLParameter = @".json";
   }]resume];
 }
 
++ (void)fetchStoryWithID:(NSNumber *)storyID :(void (^)(NSDictionary *storyDictionary))completion {
+  
+}
 
 @end
 
