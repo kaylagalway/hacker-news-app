@@ -10,8 +10,6 @@
 
 //creating these constants to contain the portions of the URL that we can then reference easily later. These are unchangeable.
 
-NSString *const HackerNewsAPIClient_notification_storyDidLoad = @"HackerNewsAPIClient_notification_storyDidLoad";
-
 NSString *const HackerNewsAPIClient_baseURL = @"https://hacker-news.firebaseio.com/v0/";
 NSString *const HackerNewsApiClient_topStoriesURLParameter = @"/topstories";
 NSString *const HackerNewsApiClient_itemURLParameter = @"/item/";
@@ -49,7 +47,6 @@ NSString *const HackerNewsApiClient_JsonURLParameter = @".json";
                                                                     options:0
                                                                       error:nil];
       
-      [[NSNotificationCenter defaultCenter] postNotificationName:HackerNewsAPIClient_notification_storyDidLoad object:self userInfo:storyDictionary];
       if (completion) {
         completion(storyDictionary);
       }

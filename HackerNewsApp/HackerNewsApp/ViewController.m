@@ -20,22 +20,22 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(storyLoaded:) name:HackerNewsAPIClient_notification_storyDidLoad object:nil];
+
   self.stories = [@[] mutableCopy];
   
+  __block typeof(self) blockSelf = self;
   [HackerNewsAPIClient fetchTopFiveHundredStoryIDs:^(NSArray *storyIDs) {
     for (NSNumber *storyID in storyIDs) {
-      [HackerNewsAPIClient fetchStoryWithID:storyID :nil];
+      [HackerNewsAPIClient fetchStoryWithID:storyID :^(NSDictionary *storyDictionary) {
+        [blockSelf.stories addObject:[[Story alloc]initWithJSON:storyDictionary]];
+      }];
     }
   }];
     
   // Do any additional setup after loading the view, typically from a nib.
 }
 
-- (void)storyLoaded:(NSNotification *)note {
-  NSDictionary *storyDict = note.userInfo;
-  [self.stories addObject:storyDict];
-}
+
 
 - (void)didReceiveMemoryWarning {
   [super didReceiveMemoryWarning];
