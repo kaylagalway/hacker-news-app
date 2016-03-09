@@ -49,7 +49,7 @@ NSString *const HackerNewsApiClient_JsonURLParameter = @".json";
                                                                     options:0
                                                                       error:nil];
         
-        NSLog(@"%@", data);
+      completion(storyDictionary);
     }]resume];
     
     
