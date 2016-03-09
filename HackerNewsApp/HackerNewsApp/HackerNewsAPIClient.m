@@ -12,7 +12,11 @@
 
 + (void)fetchTopFiveHundredStoryIDs: (void (^)(NSArray *storyIDs))completion {
     
+    
 }
+//Fetch top 500 Stories
+
+//https://hacker-news.firebaseio.com/v0/topstories.json
 
 @end
 
