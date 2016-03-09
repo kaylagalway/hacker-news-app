@@ -16,6 +16,7 @@
 		CD4209BF1C8FA5B0003D76B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD4209BD1C8FA5B0003D76B3 /* LaunchScreen.storyboard */; };
 		CD4209CA1C8FA5B0003D76B3 /* HackerNewsAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4209C91C8FA5B0003D76B3 /* HackerNewsAppTests.m */; };
 		CD4209D51C8FA5B0003D76B3 /* HackerNewsAppUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4209D41C8FA5B0003D76B3 /* HackerNewsAppUITests.m */; };
+		CD4209E41C8FB9EF003D76B3 /* Story.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4209E31C8FB9EF003D76B3 /* Story.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,8 @@
 		CD4209D01C8FA5B0003D76B3 /* HackerNewsAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HackerNewsAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD4209D41C8FA5B0003D76B3 /* HackerNewsAppUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HackerNewsAppUITests.m; sourceTree = "<group>"; };
 		CD4209D61C8FA5B0003D76B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CD4209E21C8FB9EF003D76B3 /* Story.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Story.h; sourceTree = "<group>"; };
+		CD4209E31C8FB9EF003D76B3 /* Story.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Story.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +113,8 @@
 				CD4209B61C8FA5B0003D76B3 /* ViewController.m */,
 				98AA1D111C8FA64D00DE3F2C /* HackerNewsAPIClient.h */,
 				98AA1D121C8FA64D00DE3F2C /* HackerNewsAPIClient.m */,
+				CD4209E21C8FB9EF003D76B3 /* Story.h */,
+				CD4209E31C8FB9EF003D76B3 /* Story.m */,
 				CD4209B81C8FA5B0003D76B3 /* Main.storyboard */,
 				CD4209BB1C8FA5B0003D76B3 /* Assets.xcassets */,
 				CD4209BD1C8FA5B0003D76B3 /* LaunchScreen.storyboard */,
@@ -281,6 +286,7 @@
 				98AA1D131C8FA64D00DE3F2C /* HackerNewsAPIClient.m in Sources */,
 				CD4209B71C8FA5B0003D76B3 /* ViewController.m in Sources */,
 				CD4209B41C8FA5B0003D76B3 /* AppDelegate.m in Sources */,
+				CD4209E41C8FB9EF003D76B3 /* Story.m in Sources */,
 				CD4209B11C8FA5B0003D76B3 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
