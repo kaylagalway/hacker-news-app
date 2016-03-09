@@ -10,15 +10,15 @@
 
 @interface Story : NSObject
 
-@property NSString *author;
-@property NSNumber *commentCount;
-@property NSNumber *idNumber;
-@property NSArray *commentIDs;
-@property NSNumber *votesScore;
-@property NSDate *postDate;
-@property NSString *title;
-@property NSString *type;
-@property NSURL *url;
+@property (strong, nonatomic, readonly) NSString *author;
+@property (strong, nonatomic, readonly) NSNumber *commentCount;
+@property (strong, nonatomic, readonly) NSNumber *idNumber;
+@property (strong, nonatomic, readonly) NSArray *commentIDs;
+@property (strong, nonatomic, readonly) NSNumber *votesScore;
+@property (strong, nonatomic, readonly) NSDate *postDate;
+@property (strong, nonatomic, readonly) NSString *title;
+@property (strong, nonatomic, readonly) NSString *type;
+@property (strong, nonatomic, readonly) NSURL *url;
 
 - (instancetype)initWithJSON:(NSDictionary *) JSON;
 
