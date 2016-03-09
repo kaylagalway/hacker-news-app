@@ -10,4 +10,9 @@
 
 @implementation HackerNewsAPIClient
 
++ (void)fetchTopFiveHundredStoryIDs: (void (^)(NSArray *storyIDs))completion {
+    
+}
+
 @end
+

@@ -10,4 +10,6 @@
 
 @interface HackerNewsAPIClient : NSObject
 
++ (void)fetchTopFiveHundredStoryIDs: (void (^)(NSArray *storyIDs))completion;
+
 @end
