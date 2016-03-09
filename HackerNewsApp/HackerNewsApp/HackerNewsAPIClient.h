@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString *const HackerNewsAPIClient_notification_storyDidLoad;
+
 @interface HackerNewsAPIClient : NSObject
 
 + (void)fetchTopFiveHundredStoryIDs: (void (^)(NSArray *storyIDs))completion;
