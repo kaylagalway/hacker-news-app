@@ -17,6 +17,8 @@
 		CD4209CA1C8FA5B0003D76B3 /* HackerNewsAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4209C91C8FA5B0003D76B3 /* HackerNewsAppTests.m */; };
 		CD4209D51C8FA5B0003D76B3 /* HackerNewsAppUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4209D41C8FA5B0003D76B3 /* HackerNewsAppUITests.m */; };
 		CD4209E41C8FB9EF003D76B3 /* Story.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4209E31C8FB9EF003D76B3 /* Story.m */; };
+		CDE93D4E1C94CC3B0081A3A9 /* NewsDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE93D4D1C94CC3B0081A3A9 /* NewsDataModel.m */; };
+		CDE93D511C94CC720081A3A9 /* NewsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE93D501C94CC720081A3A9 /* NewsTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,10 @@
 		CD4209D61C8FA5B0003D76B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CD4209E21C8FB9EF003D76B3 /* Story.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Story.h; sourceTree = "<group>"; };
 		CD4209E31C8FB9EF003D76B3 /* Story.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Story.m; sourceTree = "<group>"; };
+		CDE93D4C1C94CC3B0081A3A9 /* NewsDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsDataModel.h; sourceTree = "<group>"; };
+		CDE93D4D1C94CC3B0081A3A9 /* NewsDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsDataModel.m; sourceTree = "<group>"; };
+		CDE93D4F1C94CC720081A3A9 /* NewsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsTableViewController.h; sourceTree = "<group>"; };
+		CDE93D501C94CC720081A3A9 /* NewsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +117,10 @@
 				CD4209B31C8FA5B0003D76B3 /* AppDelegate.m */,
 				CD4209B51C8FA5B0003D76B3 /* ViewController.h */,
 				CD4209B61C8FA5B0003D76B3 /* ViewController.m */,
+				CDE93D4C1C94CC3B0081A3A9 /* NewsDataModel.h */,
+				CDE93D4D1C94CC3B0081A3A9 /* NewsDataModel.m */,
+				CDE93D4F1C94CC720081A3A9 /* NewsTableViewController.h */,
+				CDE93D501C94CC720081A3A9 /* NewsTableViewController.m */,
 				98AA1D111C8FA64D00DE3F2C /* HackerNewsAPIClient.h */,
 				98AA1D121C8FA64D00DE3F2C /* HackerNewsAPIClient.m */,
 				CD4209E21C8FB9EF003D76B3 /* Story.h */,
@@ -283,7 +293,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDE93D4E1C94CC3B0081A3A9 /* NewsDataModel.m in Sources */,
 				98AA1D131C8FA64D00DE3F2C /* HackerNewsAPIClient.m in Sources */,
+				CDE93D511C94CC720081A3A9 /* NewsTableViewController.m in Sources */,
 				CD4209B71C8FA5B0003D76B3 /* ViewController.m in Sources */,
 				CD4209B41C8FA5B0003D76B3 /* AppDelegate.m in Sources */,
 				CD4209E41C8FB9EF003D76B3 /* Story.m in Sources */,
