@@ -20,6 +20,7 @@ NSString *const  Story_DictionaryKey_url = @"url";
 
 @interface Story ()
 
+//changed to readwrite so that it could be initialized 
 @property (strong, nonatomic, readwrite) NSString *author;
 @property (strong, nonatomic, readwrite) NSNumber *commentCount;
 @property (strong, nonatomic, readwrite) NSNumber *idNumber;
