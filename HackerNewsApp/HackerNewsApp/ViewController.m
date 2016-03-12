@@ -19,7 +19,14 @@
 @implementation ViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+
+  [super viewDidLoad];
+
+  self.stories = [@[] mutableCopy];
+  
+  //https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/Blocks/Articles/bxVariables.html#//apple_ref/doc/uid/TP40007502-CH6-SW1
+  //http://rypress.com/tutorials/objective-c/blocks
+  
     
     self.stories = [NSMutableArray new];
     
