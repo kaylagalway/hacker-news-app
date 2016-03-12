@@ -31,11 +31,13 @@
     self.stories = [NSMutableArray new];
     
     __block __weak typeof(self) blockSelf = self;
-    [HackerNewsAPIClient fetchTopFiveHundredStoryIDs:^(NSArray *storyIDs) {
+    //with the block provided by this method, we extract the NSNumber story ID
+    [HackerNewsAPIClient fetchTopFiveHundredStoryIDsWithCompletion:^(NSArray *storyIDs) {
         for (NSNumber *storyID in storyIDs) {
             
             NSLog(@"have a storyID: %@", storyID);
-            [HackerNewsAPIClient fetchStoryWithID:storyID :^(NSDictionary *storyDictionary) {
+            [HackerNewsAPIClient fetchStoryWithIDWithCompletion:storyID :^(NSDictionary *storyDictionary) {
+                
                 
                 Story *newStory = [[Story alloc]initWithJSON:storyDictionary];
                 NSLog(@"newStory: %@", newStory);
@@ -52,9 +54,6 @@
                 // [self.tableView reloadRowsAtIndexPaths:@[ipForNewStory] animation: UITableViewAnimationFromLeft];
             }];
         }
-        
-        
-        
     }];
     
     // Do any additional setup after loading the view, typically from a nib.
