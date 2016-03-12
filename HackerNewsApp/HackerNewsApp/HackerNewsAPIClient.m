@@ -17,7 +17,7 @@ NSString *const HackerNewsApiClient_JsonURLParameter = @".json";
 
 @implementation HackerNewsAPIClient
 
-+ (void)fetchTopFiveHundredStoryIDs: (void (^)(NSArray *storyIDs))completion {
++ (void)fetchTopFiveHundredStoryIDsWithCompletion:(void (^)(NSArray *storyIDs))completion {
   NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", HackerNewsAPIClient_baseURL, HackerNewsApiClient_topStoriesURLParameter, HackerNewsApiClient_JsonURLParameter]];
   
     //this is the same as creating an NSURLsession variable, creates a data task, and resumes session
@@ -34,7 +34,7 @@ NSString *const HackerNewsApiClient_JsonURLParameter = @".json";
 
 //method takes NSNumber argument of storyID (number within URL) and completes a block
 //from viewcontroller.m we called fetchStoryWithID and passed storyIDs[0] which is an NSNumber within an array
-+ (void)fetchStoryWithID:(NSNumber *)storyID :(void (^)(NSDictionary *storyDictionary))completion {
++ (void)fetchStoryWithIDWithCompletion:(NSNumber *)storyID :(void (^)(NSDictionary *storyDictionary))completion {
     
     //creating a malleable URL with four components, three of them are constants defined above, and one is a variable storyID
     NSURL *storyIdUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@%@", HackerNewsAPIClient_baseURL, HackerNewsApiClient_itemURLParameter, storyID, HackerNewsApiClient_JsonURLParameter]];

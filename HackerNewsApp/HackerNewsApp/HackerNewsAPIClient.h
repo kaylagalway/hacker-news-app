@@ -12,7 +12,10 @@ extern NSString *const HackerNewsAPIClient_notification_storyDidLoad;
 
 @interface HackerNewsAPIClient : NSObject
 
-+ (void)fetchTopFiveHundredStoryIDs: (void (^)(NSArray *storyIDs))completion;
-+ (void)fetchStoryWithID:(NSNumber *)storyID :(void (^)(NSDictionary *storyDictionary))completion;
+//passses an array of 500 story ID's into its completion block
++ (void)fetchTopFiveHundredStoryIDsWithCompletion: (void (^)(NSArray *storyIDs))completion;
+
+//takes story ID number and passes
++ (void)fetchStoryWithIDWithCompletion:(NSNumber *)storyID :(void (^)(NSDictionary *storyDictionary))completion;
 
 @end
