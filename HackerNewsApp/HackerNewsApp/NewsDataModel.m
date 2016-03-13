@@ -58,29 +58,29 @@ NSUInteger const NewsDataModel_storySection = 0;
 }
 
 -(void)reloadData {
-   __weak typeof(self) weakSelf = self; //*1
+   NSLog(@"%@", self);
+   __weak typeof(self) weakBlockSelf = self; //*1
   
    [HackerNewsAPIClient fetchTopFiveHundredStoryIDsWithCompletion:^(NSArray *storyIDs) { //*2
-      __strong typeof(weakSelf) strongSelf = weakSelf; //*3
-      NSMutableDictionary *temporaryStoriesDict = [@{} mutableCopy]; //*4
-      dispatch_group_t dispatchGroup = dispatch_group_create(); //*5
+      NSMutableDictionary *temporaryStoriesDict = [@{} mutableCopy]; //*3
+      dispatch_group_t dispatchGroup = dispatch_group_create(); //*4
       
-      for (NSInteger i = 0; i < [storyIDs count]; i++) { //*6
-         dispatch_group_enter(dispatchGroup); //*7
+      for (NSInteger i = 0; i < [storyIDs count]; i++) { //*5
+         dispatch_group_enter(dispatchGroup); //*6
          
-         [HackerNewsAPIClient fetchStoryWithIDWithCompletion:storyIDs[i] :^(NSDictionary *storyDictionary) { //*8
-            Story *newStory = [[Story alloc]initWithJSON:storyDictionary]; //*9
-            [temporaryStoriesDict setObject:newStory forKey:@(i)];
+         [HackerNewsAPIClient fetchStoryWithIDWithCompletion:storyIDs[i] :^(NSDictionary *storyDictionary) { //*7
+            Story *newStory = [[Story alloc]initWithJSON:storyDictionary]; //*8
+            [temporaryStoriesDict setObject:newStory forKey:@(i)]; //*9
            
-            dispatch_group_leave(dispatchGroup); //*11
+            dispatch_group_leave(dispatchGroup); //*10
          }];
       }
       
-      dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^{ //*12
-         strongSelf.storiesDictionary = temporaryStoriesDict; //*13
-        
-         if ([strongSelf.delegate respondsToSelector:@selector(dataSourceDidLoad)]) { //*14
-            [strongSelf.delegate dataSourceDidLoad]; //*15
+      dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^{ //*11
+         weakBlockSelf.storiesDictionary = temporaryStoriesDict; //*12
+         NSLog(@"%@", weakBlockSelf);
+         if ([weakBlockSelf.delegate respondsToSelector:@selector(dataSourceDidLoad)]) { //*13
+            [weakBlockSelf.delegate dataSourceDidLoad]; //*14
          }
       });
       
@@ -88,23 +88,16 @@ NSUInteger const NewsDataModel_storySection = 0;
 }
 
 //*1
-/*Create a weak reference to self for access inside the block.
- This avoids a retain cycle where self retains a block which in turn retains self. In that scenario, the retain cycle could lead to a memory leak.
- The reason we do not need to call __block is because we do not modify self.storiesArray outside of the execution of this block.
- If we relied on a change to self or any of its instance variables while the block is executing, we would need to utilize the __block keyword*/
+/* The __weak keyword creates a weak reference to self for access inside the block.
+ This avoids a retain cycle where self retains a block which in turn retains self. In that scenario, the retain cycle could lead to a memory leak. */
 
 //*2
 //This method fetches up to 500 story IDs asynchronously and passes the IDs as an array into its completion block
 
 //*3
-/*Inside the block, we create a strong reference to self to ensure that during the execution of the block, the weak reference does not get released.
- Because weakSelf is weak, it can be deallocated before our work here is done.
- By creating a strong version inside the block, we can be certain it will exist as long as the block is still executing */
-
-//*4
 //Create a mutable stories dictionary to collect the stories as they load
 
-//*5
+//*4
 /*Here we create a dispatch group to manage the multiple network calls we must make to gather the stories using the IDs passed into this block.
  A dispatch group is a mechanism for monitoring a set of blocks. Your application can monitor the blocks in the group synchronously or asynchronously depending on your needs.
  By extension, group can be useful for synchronizing for code that depends on the completion of other tasks.
@@ -112,38 +105,38 @@ NSUInteger const NewsDataModel_storySection = 0;
  The dispatch group keeps track of how many blocks are outstanding, and GCD retains the group until all its associated blocks complete execution.
  https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationQueues/OperationQueues.html#//apple_ref/doc/uid/TP40008091-CH102-SW25 */
 
-//*6
+//*5
 //Iterate over each story ID in the array
 
-//*7
+//*6
 //Enter the dispatch group. This tells GCD that our code is about to execute and to keep the group alive until we leave it.
 
-//*8
+//*7
 //Using each individual story ID, fetch the story dictionary from the API and pass it into this method's completion block.
 
-//*9
+//*8
 //Initialize a new story using the JSON dictionary passed into the block.
 
-//*10
+//*9
 /*Add the story object into the mutable dictionary we previously created and set its key to its position in the IDs array.
  By using i as the dictionary key, we can make sure we keep the stories properly ordered with an inexpensive data-type for access since we do not know the order in which the API will respond*/
 
-//*11
+//*10
 /*Indicate a block in the group has completed.
  When all the operations which have entered the group leave, we can be notified that the group's work is complete and thr group can be released by GCD*/
 
-//*12
+//*11
 /*dispatch_group_notify takes a group and a diapatch queue to notify us that a given group's operations are finished and executes a block on the specified thread.
  In this case, we listen for dispatchGroup to finish its operations, and execute a GCD block on the main thread.*/
 
-//*13
+//*12
 //Set the strongSelf.storiesDictionary variable to the value of the story dictionary we created during our iteration
 
-//*14
+//*13
 /*Check to see if our block version of self responds to the optional dataSourceDidLoad delegate method.
  We need to check since dataSourceDidLoad is optional. If we call it and the delegate does not implement it, the app will crash.*/
 
-//*15
+//*14
 //Call the dataSourceDidLoad method to update any controllers that are tightly-coupled to the data source by its delegate.
 
 @end

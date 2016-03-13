@@ -17,28 +17,28 @@
 @implementation ViewController
 
 - (void)viewDidLoad {
-
-  [super viewDidLoad];
+   
+   [super viewDidLoad];
    
    self.dataModel = [[NewsDataModel alloc]init];
    self.dataModel.delegate = self;
    [self.dataModel reloadData];
-
    
-    // Do any additional setup after loading the view, typically from a nib.
+   
+   // Do any additional setup after loading the view, typically from a nib.
 }
 
 
 
 -(void)dataSourceDidLoad {
+   NSLog(@"%ld", (long)[self.dataModel numberOfRowsInSection:0]);
    NSIndexPath *ip = [NSIndexPath indexPathForItem:0 inSection:0];
-   
    NSLog(@"%@", [self.dataModel storyTitleForIndexPath:ip]);
 }
 
 - (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+   [super didReceiveMemoryWarning];
+   // Dispose of any resources that can be recreated.
 }
 
 @end
