@@ -59,6 +59,7 @@ NSUInteger const NewsDataModel_storySection = 0;
 
 -(void)reloadData {
    __weak typeof(self) weakSelf = self; //*1
+  
    [HackerNewsAPIClient fetchTopFiveHundredStoryIDsWithCompletion:^(NSArray *storyIDs) { //*2
       __strong typeof(weakSelf) strongSelf = weakSelf; //*3
       NSMutableDictionary *temporaryStoriesDict = [@{} mutableCopy]; //*4
@@ -73,15 +74,16 @@ NSUInteger const NewsDataModel_storySection = 0;
            
             dispatch_group_leave(dispatchGroup); //*11
          }];
-
       }
       
       dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^{ //*12
          strongSelf.storiesDictionary = temporaryStoriesDict; //*13
+        
          if ([strongSelf.delegate respondsToSelector:@selector(dataSourceDidLoad)]) { //*14
             [strongSelf.delegate dataSourceDidLoad]; //*15
          }
       });
+      
    }];
 }
 
@@ -107,7 +109,8 @@ NSUInteger const NewsDataModel_storySection = 0;
  A dispatch group is a mechanism for monitoring a set of blocks. Your application can monitor the blocks in the group synchronously or asynchronously depending on your needs.
  By extension, group can be useful for synchronizing for code that depends on the completion of other tasks.
  Note that the blocks in a group may be run on different queues, and each individual block can add more blocks to the group.
- The dispatch group keeps track of how many blocks are outstanding, and GCD retains the group until all its associated blocks complete execution.*/
+ The dispatch group keeps track of how many blocks are outstanding, and GCD retains the group until all its associated blocks complete execution.
+ https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationQueues/OperationQueues.html#//apple_ref/doc/uid/TP40008091-CH102-SW25 */
 
 //*6
 //Iterate over each story ID in the array
