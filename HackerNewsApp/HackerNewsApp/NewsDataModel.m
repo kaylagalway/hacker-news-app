@@ -58,7 +58,6 @@ NSUInteger const NewsDataModel_storySection = 0;
 }
 
 -(void)reloadData {
-   NSLog(@"%@", self);
    __weak typeof(self) weakBlockSelf = self; //*1
   
    [HackerNewsAPIClient fetchTopFiveHundredStoryIDsWithCompletion:^(NSArray *storyIDs) { //*2
@@ -78,7 +77,7 @@ NSUInteger const NewsDataModel_storySection = 0;
       
       dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^{ //*11
          weakBlockSelf.storiesDictionary = temporaryStoriesDict; //*12
-         NSLog(@"%@", weakBlockSelf);
+
          if ([weakBlockSelf.delegate respondsToSelector:@selector(dataSourceDidLoad)]) { //*13
             [weakBlockSelf.delegate dataSourceDidLoad]; //*14
          }
