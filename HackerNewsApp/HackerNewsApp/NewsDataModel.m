@@ -16,7 +16,7 @@ NSUInteger const NewsDataModel_storySection = 0;
 
 @interface NewsDataModel()
 
-@property NSArray *storiesArray;
+@property NSDictionary *storiesDictionary;
 
 @end
 
@@ -28,28 +28,31 @@ NSUInteger const NewsDataModel_storySection = 0;
 
 -(NSInteger)numberOfRowsInSection:(NSUInteger)section {
    if (section == NewsDataModel_storySection) {
-      return [self.storiesArray count];
+      return [self.storiesDictionary count];
    }
    return 0;
 }
 
 -(NSString *)storyAuthorForIndexPath:(NSIndexPath *)indexPath {
    if (indexPath.section == NewsDataModel_storySection) {
-      return ((Story *)self.storiesArray[indexPath.row]).author;
+      Story *story = [self.storiesDictionary objectForKey:@(indexPath.row)];
+      return story.author;
    }
    return nil;
 }
 
 -(NSString *)storyTitleForIndexPath:(NSIndexPath *)indexPath {
    if (indexPath.section == NewsDataModel_storySection) {
-      return ((Story *)self.storiesArray[indexPath.row]).title;
+      Story *story = [self.storiesDictionary objectForKey:@(indexPath.row)];
+      return story.title;
    }
    return nil;
 }
 
 -(NSURL *)storyURLForIndexPath:(NSIndexPath *)indexPath {
    if (indexPath.section == NewsDataModel_storySection) {
-      return ((Story *)self.storiesArray[indexPath.row]).url;
+      Story *story = [self.storiesDictionary objectForKey:@(indexPath.row)];
+      return story.url;
    }
    return nil;
 }
@@ -58,21 +61,23 @@ NSUInteger const NewsDataModel_storySection = 0;
    __weak typeof(self) weakSelf = self; //*1
    [HackerNewsAPIClient fetchTopFiveHundredStoryIDsWithCompletion:^(NSArray *storyIDs) { //*2
       __strong typeof(weakSelf) strongSelf = weakSelf; //*3
-      NSMutableArray *stories = [@[] mutableCopy]; //*4
+      NSMutableDictionary *temporaryStoriesDict = [@{} mutableCopy]; //*4
       dispatch_group_t dispatchGroup = dispatch_group_create(); //*5
       
-      for (NSNumber *storyID in storyIDs) { //*6
+      for (NSInteger i = 0; i < [storyIDs count]; i++) { //*6
          dispatch_group_enter(dispatchGroup); //*7
          
-         [HackerNewsAPIClient fetchStoryWithIDWithCompletion:storyID :^(NSDictionary *storyDictionary) { //*8
+         [HackerNewsAPIClient fetchStoryWithIDWithCompletion:storyIDs[i] :^(NSDictionary *storyDictionary) { //*8
             Story *newStory = [[Story alloc]initWithJSON:storyDictionary]; //*9
-            [stories addObject:newStory]; //*10
+            [temporaryStoriesDict setObject:newStory forKey:@(i)];
+           
             dispatch_group_leave(dispatchGroup); //*11
          }];
+
       }
       
       dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^{ //*12
-         strongSelf.storiesArray = stories; //*13
+         strongSelf.storiesDictionary = temporaryStoriesDict; //*13
          if ([strongSelf.delegate respondsToSelector:@selector(dataSourceDidLoad)]) { //*14
             [strongSelf.delegate dataSourceDidLoad]; //*15
          }
@@ -95,7 +100,7 @@ NSUInteger const NewsDataModel_storySection = 0;
  By creating a strong version inside the block, we can be certain it will exist as long as the block is still executing */
 
 //*4
-//Create a mutable stories array to collect the stories as they load
+//Create a mutable stories dictionary to collect the stories as they load
 
 //*5
 /*Here we create a dispatch group to manage the multiple network calls we must make to gather the stories using the IDs passed into this block.
@@ -117,7 +122,8 @@ NSUInteger const NewsDataModel_storySection = 0;
 //Initialize a new story using the JSON dictionary passed into the block.
 
 //*10
-//Add the story object into the mutable dictionary we previously created.
+/*Add the story object into the mutable dictionary we previously created and set its key to its position in the IDs array.
+ By using i as the dictionary key, we can make sure we keep the stories properly ordered with an inexpensive data-type for access since we do not know the order in which the API will respond*/
 
 //*11
 /*Indicate a block in the group has completed.
@@ -128,7 +134,7 @@ NSUInteger const NewsDataModel_storySection = 0;
  In this case, we listen for dispatchGroup to finish its operations, and execute a GCD block on the main thread.*/
 
 //*13
-//Set our strong stories storiesArray variable to the value of the stories we collected during our fast-iteration
+//Set the strongSelf.storiesDictionary variable to the value of the story dictionary we created during our iteration
 
 //*14
 /*Check to see if our block version of self responds to the optional dataSourceDidLoad delegate method.
