@@ -7,12 +7,10 @@
 //
 
 #import "ViewController.h"
-#import "HackerNewsAPIClient.h"
-#import "Story.h"
+#import "NewsDataModel.h"
 
-@interface ViewController ()
-
-@property (strong, nonatomic) NSMutableArray *stories;
+@interface ViewController ()<NewsDataModelDelegate>
+@property NewsDataModel *dataModel;
 
 @end
 
@@ -21,47 +19,22 @@
 - (void)viewDidLoad {
 
   [super viewDidLoad];
+   
+   self.dataModel = [[NewsDataModel alloc]init];
+   self.dataModel.delegate = self;
+   [self.dataModel reloadData];
 
-  self.stories = [@[] mutableCopy];
-  
-  //https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/Blocks/Articles/bxVariables.html#//apple_ref/doc/uid/TP40007502-CH6-SW1
-  //http://rypress.com/tutorials/objective-c/blocks
-  
-    
-    self.stories = [NSMutableArray new];
-    
-    __block __weak typeof(self) blockSelf = self;
-    //with the block provided by this method, we extract the NSNumber story ID
-    [HackerNewsAPIClient fetchTopFiveHundredStoryIDsWithCompletion:^(NSArray *storyIDs) {
-        for (NSNumber *storyID in storyIDs) {
-            
-            NSLog(@"have a storyID: %@", storyID);
-            [HackerNewsAPIClient fetchStoryWithIDWithCompletion:storyID :^(NSDictionary *storyDictionary) {
-                
-                
-                Story *newStory = [[Story alloc]initWithJSON:storyDictionary];
-                NSLog(@"newStory: %@", newStory);
-                [blockSelf.stories addObject:newStory];
-                
-                //TOM ADDED THINGS BELOW
-                // when its all done... reload tableview
-                if (blockSelf.stories.count == storyIDs.count) {
-                    // tableview reloadData
-                }
-                // OR make an indexPath and reload that row
-                NSInteger indexOfStoryInStoriesProperty = [blockSelf.stories indexOfObject:newStory];
-                NSIndexPath *ipForNewStory = [NSIndexPath indexPathForItem:indexOfStoryInStoriesProperty inSection:0];
-                // [self.tableView reloadRowsAtIndexPaths:@[ipForNewStory] animation: UITableViewAnimationFromLeft];
-            }];
-        }
-    }];
-    
+   
     // Do any additional setup after loading the view, typically from a nib.
 }
 
 
 
-
+-(void)dataSourceDidLoad {
+   NSIndexPath *ip = [NSIndexPath indexPathForItem:0 inSection:0];
+   
+   NSLog(@"%@", [self.dataModel storyTitleForIndexPath:ip]);
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
