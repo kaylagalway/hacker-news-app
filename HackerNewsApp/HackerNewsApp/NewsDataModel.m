@@ -88,7 +88,8 @@ NSUInteger const NewsDataModel_storySection = 0;
 
 //*1
 /* The __weak keyword creates a weak reference to self for access inside the block.
- This avoids a retain cycle where self retains a block which in turn retains self. In that scenario, the retain cycle could lead to a memory leak. */
+ This avoids a retain cycle where self retains a block which in turn retains self. In that scenario, the retain cycle could lead to a memory leak. 
+ http://stackoverflow.com/questions/7853915/how-do-i-avoid-capturing-self-in-blocks-when-implementing-an-api */
 
 //*2
 //This method fetches up to 500 story IDs asynchronously and passes the IDs as an array into its completion block
